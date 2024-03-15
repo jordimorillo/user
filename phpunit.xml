@@ -7,7 +7,7 @@
   </testsuites>
   <php>
     <env name="APP_ENV" value=""/>
-    <env name="MYSQL_HOST" value="localhost"/>
+    <env name="MYSQL_HOST" value="127.0.0.1"/>
     <env name="MYSQL_PORT" value="3306"/>
     <env name="MYSQL_DB" value="test_user"/>
     <env name="MYSQL_USER" value="test_user"/>
