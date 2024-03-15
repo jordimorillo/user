@@ -12,7 +12,8 @@ use Tests\Fixtures\Users;
 use Tests\RepositoryTestCase;
 
 class UserRepositoryTest extends RepositoryTestCase {
-    public function dataProvider(): array {
+    public static function dataProvider(): array {
+        self::setupDatabase();
         return [
             'In Memory' => [new UserRepositoryInMemory()],
             'In MySQL' => [new UserRepositoryInMysql(MysqlClient::getConnection())],
