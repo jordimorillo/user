@@ -1,0 +1,58 @@
+{
+  "require-dev": {
+    "ext-simplexml": "*",
+    "adriansuter/php-autoload-override": "^1.3",
+    "guzzlehttp/psr7": "^2.4",
+    "httpsoft/http-message": "^1.0",
+    "httpsoft/http-server-request": "^1.0",
+    "imbo/behat-api-extension": "^3.0",
+    "laminas/laminas-diactoros": "^2.14",
+    "nyholm/psr7": "^1.5",
+    "nyholm/psr7-server": "^1.0",
+    "phpspec/prophecy": "^1.15",
+    "phpspec/prophecy-phpunit": "^2.0",
+    "phpunit/phpunit": "*",
+    "roave/security-advisories": "dev-latest",
+    "slim/http": "^1.2"
+  },
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-json": "*",
+    "ext-mysqli": "*",
+    "myclabs/php-enum": "*",
+    "nikic/fast-route": "^1.3",
+    "php-di/php-di": "^6.3.5",
+    "psr/container": "^1.0 || ^2.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/http-server-handler": "^1.0",
+    "psr/http-server-middleware": "^1.0",
+    "psr/log": "^1.1 || ^2.0 || ^3.0",
+    "ramsey/uuid": "*",
+    "slim/psr7": "^1.5",
+    "vlucas/phpdotenv": "^5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Slim\\": "app/Slim",
+      "Configuration\\": "configuration/",
+      "Source\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "@phpunit"
+    ],
+    "phpunit": "phpunit"
+  },
+  "suggest": {
+    "ext-simplexml": "Needed to support XML format in BodyParsingMiddleware",
+    "ext-xml": "Needed to support XML format in BodyParsingMiddleware",
+    "slim/psr7": "Slim PSR-7 implementation. See https://www.slimframework.com/docs/v4/start/installation.html for more information.",
+    "php-di/php-di": "PHP-DI is the recommended container library to be used with Slim"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
