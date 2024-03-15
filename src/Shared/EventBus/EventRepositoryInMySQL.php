@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\Shared\EventBus;
 
@@ -13,7 +13,8 @@ class EventRepositoryInMySQL implements EventRepository
 {
     private mysqli $mysqli;
 
-    public function __construct(mysqli $mysqli) {
+    public function __construct(mysqli $mysqli)
+    {
         $this->mysqli = $mysqli;
     }
 
@@ -22,11 +23,13 @@ class EventRepositoryInMySQL implements EventRepository
      */
     public function store(Event $event): void
     {
-        $stmt = $this->mysqli->prepare("INSERT INTO `events` 
+        $stmt = $this->mysqli->prepare(
+            "INSERT INTO `events` 
             (`eventId`, `domainEvent`, `commandHandlerFQN`, `occurredOn`) 
             VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `domainEvent`=VALUES(`domainEvent`),
             `commandHandlerFQN`=VALUES(`commandHandlerFQN`), `occurredOn`=VALUES(`occurredOn`);
-            ");
+            "
+        );
         $stmt->bind_param('ssss', $eventIdValue, $domainEventValue, $commandHandlerValue, $occurredOnValue);
         $eventIdValue = $event->getEventId()->toString();
         $domainEventValue = json_encode($event->getDomainEvent(), JSON_THROW_ON_ERROR);
@@ -44,7 +47,7 @@ class EventRepositoryInMySQL implements EventRepository
         $stmt->execute();
         $result = $stmt->get_result();
         $rows = [];
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $rows[] = $this->eventFromRow($row);
         }
         return $rows;

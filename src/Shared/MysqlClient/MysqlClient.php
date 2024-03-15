@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\Shared\MysqlClient;
 
@@ -12,7 +12,7 @@ class MysqlClient
 
     public static function connect(string $host, string $user, string $pass, int $port = 3306): void
     {
-        if(!isset(self::$mysqli)) {
+        if (!isset(self::$mysqli)) {
             self::$mysqli = new mysqli($host, $user, $pass, null, $port);
         }
     }
@@ -29,8 +29,8 @@ class MysqlClient
 
     public static function resetDatabase(string $database, bool $importFixtures = true): void
     {
-        $structureFile = dirname(__DIR__,3).'/resources/structure.sql';
-        $testDataFile = dirname(__DIR__,3).'/resources/test_fixtures.sql';
+        $structureFile = dirname(__DIR__, 3) . '/resources/structure.sql';
+        $testDataFile = dirname(__DIR__, 3) . '/resources/test_fixtures.sql';
         shell_exec(
             'mysql -u' . $_ENV['MYSQL_USER'] . ' -p' . $_ENV['MYSQL_PASS']
             . ' -e \'DROP DATABASE IF EXISTS `' . $database . '`\' 2>&1'
@@ -43,9 +43,9 @@ class MysqlClient
         shell_exec(
             'mysql -u' . $_ENV['MYSQL_USER']
             . ' -p' . $_ENV['MYSQL_PASS']
-            . ' ' . $database . ' < '.$structureFile.' 2>&1'
+            . ' ' . $database . ' < ' . $structureFile . ' 2>&1'
         );
-        if($importFixtures === true) {
+        if ($importFixtures === true) {
             shell_exec(
                 'mysql -u' . $_ENV['MYSQL_USER']
                 . ' -p' . $_ENV['MYSQL_PASS']

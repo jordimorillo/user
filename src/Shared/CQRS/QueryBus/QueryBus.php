@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\Shared\CQRS\QueryBus;
 
@@ -21,8 +21,9 @@ class QueryBus
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function handle(Query $query): array {
+    public function handle(Query $query): array
+    {
         $queryClass = get_class($query);
-        return $this->container->get($queryClass.'Handler')->handle($query);
+        return $this->container->get($queryClass . 'Handler')->handle($query);
     }
 }

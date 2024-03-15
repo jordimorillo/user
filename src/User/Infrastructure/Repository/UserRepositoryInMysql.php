@@ -7,14 +7,17 @@ namespace Source\User\Infrastructure\Repository;
 use Source\User\Domain\Entity\User;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 
-class UserRepositoryInMysql implements UserRepositoryInterface {
+class UserRepositoryInMysql implements UserRepositoryInterface
+{
     private \mysqli $mysqli;
 
-    public function __construct(\mysqli $mysqli) {
+    public function __construct(\mysqli $mysqli)
+    {
         $this->mysqli = $mysqli;
     }
 
-    public function save(User $user): void {
+    public function save(User $user): void
+    {
         $stmt = $this->mysqli->prepare(
             "INSERT INTO users (user_id, email, password) VALUES (?, ?, ?)
             ON DUPLICATE KEY UPDATE email = VALUES(email), password = VALUES(password)"

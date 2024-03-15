@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\User\Domain\Entity;
 
@@ -8,23 +8,27 @@ use Source\User\Domain\ValueObject\Email;
 use Source\User\Domain\ValueObject\Password;
 use Source\User\Domain\ValueObject\UserId;
 
-class User {
+class User
+{
 
     private UserId $userId;
     private Email $email;
     private Password $password;
 
-    public function __construct(UserId $userId, Email $email, Password $password) {
+    public function __construct(UserId $userId, Email $email, Password $password)
+    {
         $this->userId = $userId;
         $this->email = $email;
         $this->password = $password;
     }
 
-    public function getId(): UserId {
+    public function getId(): UserId
+    {
         return $this->userId;
     }
 
-    public function getEmail(): Email {
+    public function getEmail(): Email
+    {
         return $this->email;
     }
 

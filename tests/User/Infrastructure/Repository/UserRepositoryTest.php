@@ -11,8 +11,10 @@ use Source\User\Infrastructure\Repository\UserRepositoryInMysql;
 use Tests\Fixtures\Users;
 use Tests\RepositoryTestCase;
 
-class UserRepositoryTest extends RepositoryTestCase {
-    public static function dataProvider(): array {
+class UserRepositoryTest extends RepositoryTestCase
+{
+    public static function dataProvider(): array
+    {
         self::setupDatabase();
         return [
             'In Memory' => [new UserRepositoryInMemory()],
@@ -21,12 +23,14 @@ class UserRepositoryTest extends RepositoryTestCase {
     }
 
     /** @dataProvider dataProvider() */
-    public function testCanInstantiate(UserRepositoryInterface $userRepository): void {
+    public function testCanInstantiate(UserRepositoryInterface $userRepository): void
+    {
         self::assertInstanceOf(UserRepositoryInterface::class, $userRepository);
     }
 
     /** @dataProvider dataProvider() */
-    public function testCanSave(UserRepositoryInterface $userRepository): void {
+    public function testCanSave(UserRepositoryInterface $userRepository): void
+    {
         $user = Users::aUser();
         $userRepository->save($user);
         self::assertTrue(true);

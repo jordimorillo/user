@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\User\Domain\Entity;
 
@@ -8,10 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Source\User\Domain\Entity\User;
 use Tests\Fixtures\Users;
 
-class UserTest extends TestCase {
+class UserTest extends TestCase
+{
     private User $user;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         $this->user = Users::aUser();
     }
@@ -24,7 +26,8 @@ class UserTest extends TestCase {
     public function testCanHaveAUniqueIdentifier(): void
     {
         self::assertIsString(
-            $this->user->getId()->toString());
+            $this->user->getId()->toString()
+        );
     }
 
     public function testCanHaveAnEmail(): void

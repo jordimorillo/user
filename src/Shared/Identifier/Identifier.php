@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\Shared\Identifier;
 
@@ -11,8 +11,9 @@ class Identifier implements StringValueObject
 {
     private string $identifier;
 
-    public function __construct(string $identifier = null) {
-        if($identifier === null) {
+    public function __construct(string $identifier = null)
+    {
+        if ($identifier === null) {
             $uuid = Uuid::uuid4();
             $this->identifier = $uuid->toString();
         } else {
@@ -20,13 +21,13 @@ class Identifier implements StringValueObject
         }
     }
 
-    public function __toString(): string
-    {
-        return $this->identifier;
-    }
-
     public function toString(): string
     {
         return (string)$this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->identifier;
     }
 }

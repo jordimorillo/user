@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\Shared\CQRS\CommandBus;
 
@@ -12,7 +12,8 @@ class CommandBus
 {
     private Container $container;
 
-    public function __construct(Container $container) {
+    public function __construct(Container $container)
+    {
         $this->container = $container;
     }
 
@@ -23,7 +24,7 @@ class CommandBus
     public function handle(Command $command)
     {
         $commandClass = get_class($command);
-        $commandHandlerClass = $commandClass.'Handler';
+        $commandHandlerClass = $commandClass . 'Handler';
         $commandHandler = $this->container->get($commandHandlerClass);
         $commandHandler->execute($command);
     }

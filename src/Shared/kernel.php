@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
-use Source\Shared\DependencyInjector;
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
+use Source\Shared\DependencyInjector;
 use Source\Shared\MysqlClient\MysqlClient;
 
 require dirname(__DIR__, 2) . '/vendor/autoload.php';

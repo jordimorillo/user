@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Source\Shared\EventBus;
 
@@ -11,7 +11,8 @@ class EventBus
 {
     private EventRepository $eventRepository;
 
-    public function __construct(EventRepository $eventRepository) {
+    public function __construct(EventRepository $eventRepository)
+    {
         $this->eventRepository = $eventRepository;
     }
 
