@@ -20,4 +20,20 @@ class UserTest extends TestCase {
     {
         self::assertInstanceOf(User::class, $this->user);
     }
+
+    public function testCanHaveAUniqueIdentifier(): void
+    {
+        self::assertIsString(
+            $this->user->getId()->toString());
+    }
+
+    public function testCanHaveAnEmail(): void
+    {
+        self::assertIsString($this->user->getEmail()->toString());
+    }
+
+    public function testCanHaveAPassword(): void
+    {
+        self::assertIsString($this->user->getPassword()->toString());
+    }
 }

@@ -9,9 +9,9 @@
     <env name="APP_ENV" value=""/>
     <env name="MYSQL_HOST" value="localhost"/>
     <env name="MYSQL_PORT" value="3306"/>
-    <env name="MYSQL_DB" value="db_name"/>
-    <env name="MYSQL_USER" value="db_user"/>
-    <env name="MYSQL_PASS" value="db_password"/>
+    <env name="MYSQL_DB" value="test_user"/>
+    <env name="MYSQL_USER" value="test_user"/>
+    <env name="MYSQL_PASS" value="test_user"/>
   </php>
   <source>
     <include>

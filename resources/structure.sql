@@ -15,3 +15,17 @@ alter table events
         primary key (eventId);
 
 -- Here comes the initial mysql queries that build tables
+drop table if exists users;
+create table users
+(
+    user_id           varchar(255)     not null,
+    email             varchar(255)     not null,
+    password          varchar(255)     not null
+);
+
+create unique index users_user_id_uindex
+    on users (user_id);
+
+alter table users
+    add constraint users_pk
+        primary key (user_id);
