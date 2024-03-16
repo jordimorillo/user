@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Source\User\Domain\Entity;
 
+use mysqli_result;
 use Source\User\Domain\ValueObject\Email;
 use Source\User\Domain\ValueObject\Password;
 use Source\User\Domain\ValueObject\UserId;
@@ -20,6 +21,15 @@ class User
         $this->userId = $userId;
         $this->email = $email;
         $this->password = $password;
+    }
+
+    public static function fromArray(array $result): self
+    {
+        return new self(
+            new UserId($result['user_id']),
+            new Email($result['email']),
+            new Password($result['password'])
+        );
     }
 
     public function getId(): UserId

@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace Tests\User\Infrastructure\Repository;
 
 use Source\Shared\MysqlClient\MysqlClient;
+use Source\User\Domain\ValueObject\UserId;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
+use Source\User\Infrastructure\Repository\Exception\UserNotFoundException;
 use Source\User\Infrastructure\Repository\UserRepositoryInMemory;
 use Source\User\Infrastructure\Repository\UserRepositoryInMysql;
 use Tests\Fixtures\Users;
@@ -33,6 +35,14 @@ class UserRepositoryTest extends RepositoryTestCase
     {
         $user = Users::aUser();
         $userRepository->save($user);
-        self::assertTrue(true);
+        $actualUser = $userRepository->findById($user->getId());
+        self::assertEquals($user, $actualUser);
+    }
+
+    /** @dataProvider dataProvider() */
+    public function testCanReturnUserNotFoundException(UserRepositoryInterface $userRepository): void
+    {
+        $this->expectException(UserNotFoundException::class);
+        $userRepository->findById(new UserId());
     }
 }
