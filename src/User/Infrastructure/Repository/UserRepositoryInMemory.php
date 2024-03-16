@@ -54,4 +54,9 @@ class UserRepositoryInMemory implements UserRepositoryInterface
         });
         return count($filteredArray) > 0;
     }
+
+    public function delete(UserId $userId): void
+    {
+        unset($this->users[$userId->toString()]);
+    }
 }

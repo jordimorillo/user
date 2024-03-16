@@ -63,4 +63,14 @@ class UserRepositoryTest extends RepositoryTestCase
         $exists = $userRepository->exists($user->getEmail(), $user->getPassword());
         self::assertTrue($exists);
     }
+
+    /** @dataProvider dataProvider() */
+    public function testCanDeleteAUser(UserRepositoryInterface $userRepository): void
+    {
+        $user = Users::aUser();
+        $userRepository->save($user);
+        $userRepository->delete($user->getId());
+        $this->expectException(UserNotFoundException::class);
+        $userRepository->findById($user->getId());
+    }
 }

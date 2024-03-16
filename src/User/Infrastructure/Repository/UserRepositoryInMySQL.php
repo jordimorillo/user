@@ -81,4 +81,12 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
         }
         return true;
     }
+
+    public function delete(UserId $userId): void
+    {
+        $stmt = $this->mysqli->prepare("DELETE FROM users WHERE user_id=?");
+        $userIdString = $userId->toString();
+        $stmt->bind_param('s', $userIdString);
+        $stmt->execute();
+    }
 }
