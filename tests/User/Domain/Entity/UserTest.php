@@ -6,6 +6,7 @@ namespace Tests\User\Domain\Entity;
 
 use PHPUnit\Framework\TestCase;
 use Source\User\Domain\Entity\User;
+use Source\User\Domain\ValueObject\Password;
 use Tests\Fixtures\Users;
 
 class UserTest extends TestCase
@@ -38,5 +39,12 @@ class UserTest extends TestCase
     public function testCanHaveAPassword(): void
     {
         self::assertIsString($this->user->getPassword()->toString());
+    }
+
+    public function testCanChangeAPassword(): void
+    {
+        $password = new Password('changed-password');
+        $this->user->changePassword($password);
+        self::assertEquals($password, $this->user->getPassword());
     }
 }

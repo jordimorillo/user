@@ -54,4 +54,9 @@ class User
     {
         return $this->password;
     }
+
+    public function changePassword(Password $password): void
+    {
+        $this->password = $password;
+    }
 }
