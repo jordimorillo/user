@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Source\User\Application\Command;
 
-use Source\Shared\CQRS\CommandBus\Command;
-
-class CreateUserCommand implements Command
+class CheckPasswordCommand
 {
     private string $email;
     private string $password;

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Source\User\Application\Command;
 
-class ChangePasswordCommand
+use Source\Shared\CQRS\CommandBus\Command;
+
+class ChangePasswordCommand implements Command
 {
     private string $email;
     private string $password;
