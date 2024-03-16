@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Source\User\Domain\UseCase;
+namespace Source\User\Application\Command;
 
-use Source\User\Domain\Entity\User;
 use Source\User\Domain\ValueObject\Email;
 use Source\User\Domain\ValueObject\Password;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 
-class CreateUserUseCase
+class ChangePasswordCommandHandler
 {
-
     private UserRepositoryInterface $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository)
@@ -19,9 +17,10 @@ class CreateUserUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $email, string $password): void
+    public function execute(ChangePasswordCommand $command): void
     {
-        $user = User::create(new Email($email), new Password($password));
+        $user = $this->userRepository->findByEmail(new Email($command->getEmail()));
+        $user->changePassword(new Password($command->getPassword()));
         $this->userRepository->save($user);
     }
 }

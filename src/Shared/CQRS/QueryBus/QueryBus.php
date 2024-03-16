@@ -8,7 +8,8 @@ use DI\Container;
 use DI\DependencyException;
 use DI\NotFoundException;
 
-class QueryBus
+class
+QueryBus
 {
     private Container $container;
 

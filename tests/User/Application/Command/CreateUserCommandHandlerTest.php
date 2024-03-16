@@ -1,32 +1,33 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
-namespace Tests\User\UseCase;
+namespace Tests\User\Application\Command;
 
 use PHPUnit\Framework\TestCase;
-use Source\User\Domain\Entity\User;
-use Source\User\Domain\UseCase\CreateUserUseCase;
+use Source\User\Application\Command\CreateUserCommand;
+use Source\User\Application\Command\CreateUserCommandHandler;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 use Source\User\Infrastructure\Repository\UserRepositoryInMemory;
 use Tests\Fixtures\Users;
 
-class CreateUserUseCaseTest extends TestCase
+class CreateUserCommandHandlerTest extends TestCase
 {
-    private CreateUserUseCase $useCase;
+    private CreateUserCommandHandler $commandHandler;
     private UserRepositoryInterface $userRepository;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->userRepository = new UserRepositoryInMemory();
-        $this->useCase = new CreateUserUseCase($this->userRepository);
+        $this->commandHandler = new CreateUserCommandHandler($this->userRepository);
     }
 
     public function testCanCreateAUser(): void
     {
         $user = Users::aUser();
-        $this->useCase->execute($user->getEmail()->toString(), $user->getPassword()->toString());
+        $command = new CreateUserCommand($user->getEmail()->toString(), $user->getPassword()->toString());
+        $this->commandHandler->execute($command);
         $actual = $this->userRepository->findByEmail($user->getEmail());
         self::assertEquals($user->getEmail(), $actual->getEmail());
         self::assertEquals($user->getPassword(), $actual->getPassword());

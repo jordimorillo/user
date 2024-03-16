@@ -21,7 +21,7 @@ class CommandBus
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function handle(Command $command)
+    public function handle(Command $command): void
     {
         $commandClass = get_class($command);
         $commandHandlerClass = $commandClass . 'Handler';
