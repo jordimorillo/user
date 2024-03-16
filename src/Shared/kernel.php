@@ -17,7 +17,7 @@ try {
     MysqlClient::selectDatabase($_ENV['MYSQL_DB']);
 
     $dependencyInjector = new DependencyInjector();
-    $dependencies = require(dirname(__DIR__, 2) . '/configuration/dependencies.php');
+    $dependencies = require dirname(__DIR__, 2) . '/configuration/dependencies.php';
     $dependencyInjector->addDependencies($dependencies);
 
     $containerBuilder = new ContainerBuilder();
@@ -29,7 +29,7 @@ try {
     $app->addRoutingMiddleware();
     $errorMiddleware = $app->addErrorMiddleware(false, true, true);
 
-    require(dirname(__DIR__, 2) . '/configuration/routes.php');
+    require dirname(__DIR__, 2) . '/configuration/routes.php';
 
     $app->run();
 } catch (Exception $e) {

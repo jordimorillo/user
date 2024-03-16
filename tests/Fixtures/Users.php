@@ -14,8 +14,7 @@ class Users
 
     public static function aUser(): User
     {
-        return new User(
-            new UserId(),
+        return User::create(
             new Email('john@doe.com'),
             new Password('a-password')
         );

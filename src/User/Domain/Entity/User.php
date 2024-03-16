@@ -16,11 +16,19 @@ class User
     private Email $email;
     private Password $password;
 
-    public function __construct(UserId $userId, Email $email, Password $password)
+    private function __construct(UserId $userId, Email $email, Password $password)
     {
         $this->userId = $userId;
         $this->email = $email;
         $this->password = $password;
+    }
+
+    public static function create(Email $email, Password $password): self {
+        return new self(
+            new UserId(),
+            $email,
+            $password
+        );
     }
 
     public static function fromArray(array $result): self
