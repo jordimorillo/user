@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup MySQL and create test_user table
         run: |
-          mysql -h localhost -u test_user -ptest_user test_user < ./resources/structure.sql
+          mysql -h127.0.0.1 -u test_user -ptest_user test_user < ./resources/structure.sql
 
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --configuration=phpunit.xml
