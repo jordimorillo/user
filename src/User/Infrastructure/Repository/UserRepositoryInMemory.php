@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Source\User\Infrastructure\Repository;
 
 use Source\User\Domain\Entity\User;
+use Source\User\Domain\ValueObject\Email;
 use Source\User\Domain\ValueObject\UserId;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 use Source\User\Infrastructure\Repository\Exception\UserNotFoundException;
@@ -32,5 +33,13 @@ class UserRepositoryInMemory implements UserRepositoryInterface
             throw new UserNotFoundException();
         }
         return $this->users[$userId->toString()];
+    }
+
+    public function findByEmail(Email $email): User
+    {
+        $filteredArray = array_filter($this->users, static function (User $user) use ($email) {
+            return $user->getEmail()->toString() === $email->toString();
+        });
+        return reset($filteredArray);
     }
 }

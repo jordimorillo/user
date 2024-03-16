@@ -9,7 +9,7 @@ use Source\User\Domain\ValueObject\UserId;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 use Source\User\Infrastructure\Repository\Exception\UserNotFoundException;
 use Source\User\Infrastructure\Repository\UserRepositoryInMemory;
-use Source\User\Infrastructure\Repository\UserRepositoryInMysql;
+use Source\User\Infrastructure\Repository\UserRepositoryInMySQL;
 use Tests\Fixtures\Users;
 use Tests\RepositoryTestCase;
 
@@ -20,7 +20,7 @@ class UserRepositoryTest extends RepositoryTestCase
         self::setupDatabase();
         return [
             'In Memory' => [new UserRepositoryInMemory()],
-            'In MySQL' => [new UserRepositoryInMysql(MysqlClient::getConnection())],
+            'In MySQL' => [new UserRepositoryInMySQL(MysqlClient::getConnection())],
         ];
     }
 
@@ -44,5 +44,14 @@ class UserRepositoryTest extends RepositoryTestCase
     {
         $this->expectException(UserNotFoundException::class);
         $userRepository->findById(new UserId());
+    }
+
+    /** @dataProvider dataProvider() */
+    public function testCanFindByEmail(UserRepositoryInterface $userRepository): void
+    {
+        $user = Users::aUser();
+        $userRepository->save($user);
+        $actual = $userRepository->findByEmail($user->getEmail());
+        self::assertEquals($user, $actual);
     }
 }
