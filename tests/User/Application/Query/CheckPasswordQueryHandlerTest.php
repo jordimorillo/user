@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\User\Application\Command;
+namespace Tests\User\Application\Query;
 
-use MongoDB\Driver\Command;
 use PHPUnit\Framework\TestCase;
-use Source\User\Application\Command\CheckPasswordCommand;
-use Source\User\Application\Command\CheckPasswordCommandHandler;
+use Source\User\Application\Query\CheckPasswordQuery;
+use Source\User\Application\Query\CheckPasswordQueryHandler;
 use Source\User\Infrastructure\Repository\UserRepositoryInMemory;
 use Tests\Fixtures\Users;
 
-class CheckPasswordCommandHandlerTest extends TestCase
+class CheckPasswordQueryHandlerTest extends TestCase
 {
     public function setUp(): void
     {
@@ -20,12 +19,12 @@ class CheckPasswordCommandHandlerTest extends TestCase
         $this->repository = new UserRepositoryInMemory([
             $this->user->getId()->toString() => $this->user,
         ]);
-        $this->commandHandler = new CheckPasswordCommandHandler($this->repository);
+        $this->commandHandler = new CheckPasswordQueryHandler($this->repository);
     }
 
     public function testCanCheckEmailAndPassword(): void
     {
-        $command = new CheckPasswordCommand($this->user->getEmail()->toString(), $this->user->getPassword()->toString());
+        $command = new CheckPasswordQuery($this->user->getEmail()->toString(), $this->user->getPassword()->toString());
         $result = $this->commandHandler->execute($command);
         self::assertTrue($result);
     }

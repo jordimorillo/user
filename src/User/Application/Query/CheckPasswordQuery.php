@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Source\User\Application\Command;
+namespace Source\User\Application\Query;
 
-class CheckPasswordCommand
+use Source\Shared\CQRS\QueryBus\Query;
+
+class CheckPasswordQuery implements Query
 {
     private string $email;
     private string $password;

@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Source\User\Application\Command;
+namespace Source\User\Application\Query;
 
-use Exception;
 use Source\User\Domain\ValueObject\Email;
 use Source\User\Domain\ValueObject\Password;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 
-class CheckPasswordCommandHandler
+class CheckPasswordQueryHandler
 {
     private UserRepositoryInterface $repository;
 
@@ -18,11 +17,11 @@ class CheckPasswordCommandHandler
         $this->repository = $repository;
     }
 
-    public function execute(CheckPasswordCommand $command): bool
+    public function execute(CheckPasswordQuery $query): bool
     {
         return $this->repository->exists(
-            new Email($command->getEmail()),
-            new Password($command->getPassword())
+            new Email($query->getEmail()),
+            new Password($query->getPassword())
         );
     }
 }
