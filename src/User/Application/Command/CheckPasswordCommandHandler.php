@@ -6,6 +6,7 @@ namespace Source\User\Application\Command;
 
 use Exception;
 use Source\User\Domain\ValueObject\Email;
+use Source\User\Domain\ValueObject\Password;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 
 class CheckPasswordCommandHandler
@@ -19,11 +20,9 @@ class CheckPasswordCommandHandler
 
     public function execute(CheckPasswordCommand $command): bool
     {
-        try{
-            $user = $this->repository->findByEmail(new Email($command->getEmail()));
-            return $user->getPassword()->toString() === $command->getPassword();
-        } catch (Exception $e) {
-            return false;
-        }
+        return $this->repository->exists(
+            new Email($command->getEmail()),
+            new Password($command->getPassword())
+        );
     }
 }

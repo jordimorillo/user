@@ -54,4 +54,13 @@ class UserRepositoryTest extends RepositoryTestCase
         $actual = $userRepository->findByEmail($user->getEmail());
         self::assertEquals($user, $actual);
     }
+
+    /** @dataProvider dataProvider() */
+    public function testCanCheckIfAUserExists(UserRepositoryInterface $userRepository): void
+    {
+        $user = Users::aUser();
+        $userRepository->save($user);
+        $exists = $userRepository->exists($user->getEmail(), $user->getPassword());
+        self::assertTrue($exists);
+    }
 }

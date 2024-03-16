@@ -6,6 +6,7 @@ namespace Source\User\Infrastructure\Repository;
 
 use Source\User\Domain\Entity\User;
 use Source\User\Domain\ValueObject\Email;
+use Source\User\Domain\ValueObject\Password;
 use Source\User\Domain\ValueObject\UserId;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 use Source\User\Infrastructure\Repository\Exception\UserNotFoundException;
@@ -64,5 +65,20 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
             throw new UserNotFoundException();
         }
         return User::fromArray($row);
+    }
+
+    public function exists(Email $email, Password $password): bool
+    {
+        $stmt = $this->mysqli->prepare("SELECT * FROM users where email=? and password=?");
+        $emailString = $email->toString();
+        $passwordString = $password->toString();
+        $stmt->bind_param('ss', $emailString, $passwordString);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        if($row === null) {
+            return false;
+        }
+        return true;
     }
 }
