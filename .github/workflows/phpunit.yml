@@ -33,5 +33,9 @@ jobs:
       - name: Install dependencies
         run: composer install
 
+      - name: Setup MySQL and create test_user table
+        run: |
+          mysql -h localhost -u test_user -ptest_user test_user < ./resources/structure.sql
+
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit --configuration=phpunit.xml
