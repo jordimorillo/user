@@ -31,26 +31,12 @@ class MysqlClient
     {
         $structureFile = dirname(__DIR__, 3) . '/resources/structure.sql';
         $testDataFile = dirname(__DIR__, 3) . '/resources/test_fixtures.sql';
-        shell_exec(
-            'mysql -u' . $_ENV['MYSQL_USER'] . ' -p' . $_ENV['MYSQL_PASS']
-            . ' -e \'DROP DATABASE IF EXISTS `' . $database . '`\' 2>&1'
-        );
-        shell_exec(
-            'mysql -u' . $_ENV['MYSQL_USER']
-            . ' -p' . $_ENV['MYSQL_PASS']
-            . ' --execute=\'CREATE DATABASE `' . $database . '`\' 2>&1'
-        );
-        shell_exec(
-            'mysql -u' . $_ENV['MYSQL_USER']
-            . ' -p' . $_ENV['MYSQL_PASS']
-            . ' ' . $database . ' < ' . $structureFile . ' 2>&1'
-        );
+        $startMysqlQuery = 'mysql -u' . $_ENV['MYSQL_USER'] . ' -p' . $_ENV['MYSQL_PASS'];
+        shell_exec($startMysqlQuery . ' -e \'DROP DATABASE IF EXISTS `' . $database . '`\' 2>&1');
+        shell_exec($startMysqlQuery . ' --execute=\'CREATE DATABASE `' . $database . '`\' 2>&1');
+        shell_exec($startMysqlQuery . ' ' . $database . ' < ' . $structureFile . ' 2>&1');
         if ($importFixtures === true) {
-            shell_exec(
-                'mysql -u' . $_ENV['MYSQL_USER']
-                . ' -p' . $_ENV['MYSQL_PASS']
-                . ' ' . $database . ' < ' . $testDataFile . ' 2>&1'
-            );
+            shell_exec($startMysqlQuery . ' ' . $database . ' < ' . $testDataFile . ' 2>&1');
         }
     }
 }

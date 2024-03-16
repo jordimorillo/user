@@ -24,17 +24,17 @@ class EventRepositoryInMySQL implements EventRepository
     public function store(Event $event): void
     {
         $stmt = $this->mysqli->prepare(
-            "INSERT INTO `events` 
-            (`eventId`, `domainEvent`, `commandHandlerFQN`, `occurredOn`) 
+            "INSERT INTO `events`
+            (`eventId`, `domainEvent`, `commandHandlerFQN`, `occurredOn`)
             VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `domainEvent`=VALUES(`domainEvent`),
             `commandHandlerFQN`=VALUES(`commandHandlerFQN`), `occurredOn`=VALUES(`occurredOn`);
             "
         );
-        $stmt->bind_param('ssss', $eventIdValue, $domainEventValue, $commandHandlerValue, $occurredOnValue);
         $eventIdValue = $event->getEventId()->toString();
         $domainEventValue = json_encode($event->getDomainEvent(), JSON_THROW_ON_ERROR);
         $commandHandlerValue = $event->getCommandHandlerFQN();
         $occurredOnValue = $event->getOccurredOn()->format('Y-m-d H:i:s');
+        $stmt->bind_param('ssss', $eventIdValue, $domainEventValue, $commandHandlerValue, $occurredOnValue);
         $stmt->execute();
     }
 
