@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Source\User\Application\Command;
 
+use Exception;
 use Source\User\Domain\ValueObject\Email;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 
@@ -21,7 +22,7 @@ class CheckPasswordCommandHandler
         try{
             $user = $this->repository->findByEmail(new Email($command->getEmail()));
             return $user->getPassword()->toString() === $command->getPassword();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
