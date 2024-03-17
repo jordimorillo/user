@@ -18,7 +18,7 @@ class AcceptanceTestCase extends TestCase
         self::setupDatabase();
         MysqlClient::resetDatabase($_ENV['MYSQL_DB']);
         $this->client = new Client([
-            'base_uri' => 'http://localhost'
+            'base_uri' => 'http://apache'
         ]);
     }
 
