@@ -6,7 +6,7 @@ namespace Tests\User\Application\Command;
 
 use PHPUnit\Framework\TestCase;
 use Source\User\Application\Command\DeleteUserCommand;
-use Source\User\Application\Command\DeleteUserCommandHanler;
+use Source\User\Application\Command\DeleteUserCommandHandler;
 use Source\User\Infrastructure\Repository\UserRepositoryInMemory;
 use Tests\Fixtures\Users;
 
@@ -19,7 +19,7 @@ class DeleteUserCommandHandlerTest extends TestCase
         $this->repository = new UserRepositoryInMemory([
             $this->user->getId()->toString() => $this->user,
         ]);
-        $this->commandHandler = new DeleteUserCommandHanler($this->repository);
+        $this->commandHandler = new DeleteUserCommandHandler($this->repository);
     }
 
     public function testCanDeleteAUser(): void

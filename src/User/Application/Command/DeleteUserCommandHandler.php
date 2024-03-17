@@ -7,7 +7,7 @@ namespace Source\User\Application\Command;
 use Source\User\Domain\ValueObject\UserId;
 use Source\User\Domain\ValueObject\UserRepositoryInterface;
 
-class DeleteUserCommandHanler
+class DeleteUserCommandHandler
 {
     private UserRepositoryInterface $repository;
 

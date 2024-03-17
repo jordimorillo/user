@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Source\User\Application\Command;
 
-class DeleteUserCommand
+use Source\Shared\CQRS\CommandBus\Command;
+
+class DeleteUserCommand implements Command
 {
     private string $userId;
 
