@@ -17,7 +17,7 @@ class CheckPasswordQueryHandler
         $this->repository = $repository;
     }
 
-    public function execute(CheckPasswordQuery $query): bool
+    public function handle(CheckPasswordQuery $query): bool
     {
         try {
             $user = $this->repository->findByEmail(

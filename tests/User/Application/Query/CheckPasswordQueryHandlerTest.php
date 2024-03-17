@@ -28,7 +28,7 @@ class CheckPasswordQueryHandlerTest extends TestCase
             $this->user->getEmail()->toString(),
             $this->user->getPassword()->toString()
         );
-        $result = $this->commandHandler->execute($command);
+        $result = $this->commandHandler->handle($command);
         self::assertTrue($result);
     }
 }

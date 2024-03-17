@@ -6,6 +6,7 @@ declare(strict_types=1);
 global $app;
 
 use Source\User\Application\Controller\ChangePasswordController;
+use Source\User\Application\Controller\CheckPasswordController;
 use Source\User\Application\Controller\CreateAUserController;
 use Source\User\Application\Controller\DeleteUserController;
 
@@ -13,3 +14,4 @@ use Source\User\Application\Controller\DeleteUserController;
 $app->post('/user', CreateAUserController::class);
 $app->put('/user', ChangePasswordController::class);
 $app->delete('/user', DeleteUserController::class);
+$app->get('/user/check-password', CheckPasswordController::class);

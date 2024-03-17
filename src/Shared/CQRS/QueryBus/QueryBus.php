@@ -22,7 +22,7 @@ QueryBus
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function handle(Query $query): array
+    public function handle(Query $query)
     {
         $queryClass = get_class($query);
         return $this->container->get($queryClass . 'Handler')->handle($query);

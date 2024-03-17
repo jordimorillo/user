@@ -35,7 +35,6 @@ try {
         $response = $requestHandler->handle($request);
         $response->withHeader('Content-Type', 'application/json');
         $response->withStatus(404);
-        $response->getBody()->write(json_encode([]));
         return $response;
     });
 
