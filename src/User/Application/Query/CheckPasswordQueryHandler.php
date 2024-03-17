@@ -19,9 +19,13 @@ class CheckPasswordQueryHandler
 
     public function execute(CheckPasswordQuery $query): bool
     {
-        return $this->repository->exists(
-            new Email($query->getEmail()),
-            new Password($query->getPassword())
-        );
+        try {
+            $user = $this->repository->findByEmail(
+                new Email($query->getEmail())
+            );
+            return password_verify($user->getPassword()->toString(), $query->getPassword());
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 }

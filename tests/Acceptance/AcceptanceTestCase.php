@@ -10,10 +10,24 @@ use Source\Shared\MysqlClient\MysqlClient;
 
 class AcceptanceTestCase extends TestCase
 {
+    protected Client $client;
+
     protected function setUp(): void
     {
         parent::setUp();
-        MysqlClient::resetDatabase($_ENV('MYSQL_DB'));
-        $this->client = new Client();
+        self::setupDatabase();
+        MysqlClient::resetDatabase($_ENV['MYSQL_DB']);
+        $this->client = new Client([
+            'base_uri' => 'http://127.0.0.1'
+        ]);
+    }
+
+    /**
+     * @return void
+     */
+    public static function setupDatabase(): void
+    {
+        MysqlClient::connect($_ENV['MYSQL_HOST'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASS'], (int)$_ENV['MYSQL_PORT']);
+        MysqlClient::selectDatabase($_ENV['MYSQL_DB']);
     }
 }

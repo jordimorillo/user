@@ -24,6 +24,6 @@ class ChangePasswordCommand implements Command
 
     public function getPassword(): string
     {
-        return $this->password;
+        return password_hash($this->password, PASSWORD_DEFAULT);
     }
 }

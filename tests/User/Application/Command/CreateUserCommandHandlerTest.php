@@ -30,6 +30,6 @@ class CreateUserCommandHandlerTest extends TestCase
         $this->commandHandler->execute($command);
         $actual = $this->userRepository->findByEmail($user->getEmail());
         self::assertEquals($user->getEmail(), $actual->getEmail());
-        self::assertEquals($user->getPassword(), $actual->getPassword());
+        self::assertTrue(password_verify($user->getPassword()->toString(), $actual->getPassword()->toString()));
     }
 }

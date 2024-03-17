@@ -38,6 +38,6 @@ class ChangePasswordCommandHandlerTest extends TestCase
         $command = new ChangePasswordCommand($this->user->getEmail()->toString(), $password);
         $this->commandHandler->execute($command);
         $actual = $this->userRepository->findById($this->user->getId());
-        self::assertEquals($password, $actual->getPassword()->toString());
+        self::assertTrue(password_verify($password, $actual->getPassword()->toString()));
     }
 }
