@@ -21,11 +21,12 @@ jobs:
           - "3306:3306"
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       apache:
-        image: php:apache
+        image: httpd:latest
         ports:
           - "80:80"
-        volumes:
-          - ./public:/var/www/html
+        options: --health-cmd="curl -f http://localhost" --health-interval=10s --health-timeout=5s --health-retries=3
+        env:
+          APACHE_DOCUMENT_ROOT: /var/www/html/public
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
