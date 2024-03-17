@@ -9,9 +9,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Source\Shared\Application\Controller;
 use Source\Shared\CQRS\CommandBus\CommandBus;
-use Source\User\Application\Command\CreateUserCommand;
+use Source\User\Application\Command\ChangePasswordCommand;
 
-class CreateAUserController implements Controller
+class ChangePasswordController implements Controller
 {
     private CommandBus $commandBus;
 
@@ -26,8 +26,8 @@ class CreateAUserController implements Controller
         array $args
     ): ResponseInterface {
         try {
-            $parameters = $request->getParams();
-            $command = new CreateUserCommand($parameters['email'], $parameters['password']);
+            $params = $request->getParams();
+            $command = new ChangePasswordCommand($params['email'], $params['password']);
             $this->commandBus->handle($command);
             return $response->withStatus(200);
         } catch (Exception $e) {

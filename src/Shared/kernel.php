@@ -3,6 +3,9 @@
 declare(strict_types = 1);
 
 use DI\ContainerBuilder;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Factory\AppFactory;
 use Source\Shared\DependencyInjector;
 use Source\Shared\MysqlClient\MysqlClient;
@@ -13,7 +16,7 @@ try {
     $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 2));
     $dotenv->load();
 
-    MysqlClient::connect($_ENV['MYSQL_HOST'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASS'], $_ENV['MYSQL_PORT']);
+    MysqlClient::connect($_ENV['MYSQL_HOST'], $_ENV['MYSQL_USER'], $_ENV['MYSQL_PASS'], (int)$_ENV['MYSQL_PORT']);
     MysqlClient::selectDatabase($_ENV['MYSQL_DB']);
 
     $dependencyInjector = new DependencyInjector();
@@ -27,7 +30,14 @@ try {
     $app = AppFactory::create();
 
     $app->addRoutingMiddleware();
-    $errorMiddleware = $app->addErrorMiddleware(false, true, true);
+    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+    $app->add(function (ServerRequestInterface $request, RequestHandlerInterface $requestHandler) {
+        $response = $requestHandler->handle($request);
+        $response->withHeader('Content-Type', 'application/json');
+        $response->withStatus(404);
+        $response->getBody()->write(json_encode([]));
+        return $response;
+    });
 
     require dirname(__DIR__, 2) . '/configuration/routes.php';
 
