@@ -1,4 +1,7 @@
 {
+  "name": "jordimorillo/user",
+  "description": "A simple User API Rest in PHP",
+  "type": "project",
   "require-dev": {
     "ext-simplexml": "*",
     "adriansuter/php-autoload-override": "^1.3",
