@@ -1,4 +1,4 @@
-name: PHPUnit Tests
+name: Dockerized PHPUnit Tests
 
 on:
   push:
@@ -9,41 +9,15 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: test_user
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_user
-        ports:
-          - "3306:3306"
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      apache:
-        image: httpd:latest
-        ports:
-          - "80:80"
-        options: --health-cmd="curl -f http://localhost" --health-interval=10s --health-timeout=5s --health-retries=3
-        env:
-          APACHE_DOCUMENT_ROOT: /var/www/html/public
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
+      - name: Build and Run Docker
+        run: docker-compose up -d
 
       - name: Install dependencies
-        run: composer install
-
-      - name: Setup MySQL and create test_user table
-        run: |
-          mysql -h127.0.0.1 -u test_user -ptest_user test_user < ./resources/structure.sql
+        run: docker-compose exec app composer install
 
       - name: Run PHPUnit tests
-        run: ./vendor/bin/phpunit --configuration=phpunit.xml
+        run: docker-compose exec app ./vendor/bin/phpunit --configuration=phpunit.xml

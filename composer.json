@@ -30,7 +30,8 @@
     "psr/log": "^1.1 || ^2.0 || ^3.0",
     "ramsey/uuid": "*",
     "slim/psr7": "^1.5",
-    "vlucas/phpdotenv": "^5.4"
+    "vlucas/phpdotenv": "^5.4",
+    "ext-libxml": "*"
   },
   "autoload": {
     "psr-4": {

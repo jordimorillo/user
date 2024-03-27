@@ -30,7 +30,7 @@ try {
     $app = AppFactory::create();
 
     $app->addRoutingMiddleware();
-    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+    $errorMiddleware = $app->addErrorMiddleware(false, true, true);
     $app->add(function (ServerRequestInterface $request, RequestHandlerInterface $requestHandler) {
         $response = $requestHandler->handle($request);
         $response->withHeader('Content-Type', 'application/json');

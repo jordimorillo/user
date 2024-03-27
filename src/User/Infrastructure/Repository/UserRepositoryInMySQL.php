@@ -31,6 +31,7 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
         $passwordString = $user->getPassword()->toString();
         $stmt->bind_param('sss', $userIdString, $emailString, $passwordString);
         $stmt->execute();
+        $stmt->close();
     }
 
     /**
@@ -44,6 +45,7 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $stmt->close();
         if($row === null) {
             throw new UserNotFoundException();
         }
@@ -61,6 +63,7 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $stmt->close();
         if($row === null) {
             throw new UserNotFoundException();
         }
@@ -76,6 +79,7 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $stmt->close();
         if($row === null) {
             return false;
         }
@@ -88,5 +92,6 @@ class UserRepositoryInMySQL implements UserRepositoryInterface
         $userIdString = $userId->toString();
         $stmt->bind_param('s', $userIdString);
         $stmt->execute();
+        $stmt->close();
     }
 }

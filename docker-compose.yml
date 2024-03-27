@@ -1,0 +1,34 @@
+services:
+
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./resources/structure.sql:/docker-entrypoint-initdb.d/structure.sql
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: the-root-password
+    ports:
+      - 3306:3306
+    networks:
+      - backend
+
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 80:80
+    networks:
+      - backend
+
+networks:
+  backend:

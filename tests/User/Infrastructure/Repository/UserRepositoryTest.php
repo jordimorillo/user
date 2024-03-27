@@ -56,6 +56,15 @@ class UserRepositoryTest extends RepositoryTestCase
     }
 
     /** @dataProvider dataProvider() */
+    public function testCanFindById(UserRepositoryInterface $userRepository): void
+    {
+        $user = Users::aUser();
+        $userRepository->save($user);
+        $actual = $userRepository->findById($user->getId());
+        self::assertEquals($user, $actual);
+    }
+
+    /** @dataProvider dataProvider() */
     public function testCanCheckIfAUserExists(UserRepositoryInterface $userRepository): void
     {
         $user = Users::aUser();
