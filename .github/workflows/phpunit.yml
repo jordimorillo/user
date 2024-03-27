@@ -17,7 +17,7 @@ jobs:
         run: docker-compose up -d
 
       - name: Install dependencies
-        run: docker-compose exec app composer install
+        run: docker-compose exec -T app composer install
 
       - name: Run PHPUnit tests
-        run: docker-compose exec app ./vendor/bin/phpunit --configuration=phpunit.xml
+        run: docker-compose exec -T app ./vendor/bin/phpunit --configuration=phpunit.xml
