@@ -16,6 +16,14 @@ jobs:
       - name: Build and Run Docker
         run: docker-compose up -d
 
+      - name: Create .env
+        run: |
+          echo "MYSQL_HOST=db" >> .env
+          echo "MYSQL_PORT=3306" >> .env
+          echo "MYSQL_DB=test" >> .env
+          echo "MYSQL_USER=test" >> .env
+          echo "MYSQL_PASS=test" >> .env
+
       - name: Install dependencies
         run: docker-compose exec -T app composer install
 
