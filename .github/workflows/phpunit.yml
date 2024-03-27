@@ -27,5 +27,8 @@ jobs:
       - name: Install dependencies
         run: docker-compose exec -T app composer install
 
+      - name: Wait for MySQL
+        run: sleep 20
+
       - name: Run PHPUnit tests
         run: docker-compose exec -T app ./vendor/bin/phpunit --configuration=phpunit.xml
